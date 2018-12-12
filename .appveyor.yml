@@ -1,0 +1,29 @@
+image: Visual Studio 2017
+
+platform:
+  - x64
+ 
+configuration:
+  - Release
+  - Debug
+
+install:
+    - git submodule update --init --recursive
+
+before_build:
+    - cmake -G "Visual Studio 15 2017 Win64" .
+
+build_script:
+    # скрипт сборки проекта:
+    - mkdir build
+    - cd build
+    - cmake .. %CMAKE_CONFIGURE_FLAGS%
+    - cmake --build . %CMAKE_BUILD_FLAGS%
+    - cmake --build . --config Release -- %MSBUILD_ARGS%
+
+build:
+  project: $(APPVEYOR_BUILD_FOLDER)\$(APPVEYOR_PROJECT_NAME).sln
+
+test_script:
+    # скрипт тестирования проекта:
+    - ctest -C %CONFIGURATION% --output-on-failure
