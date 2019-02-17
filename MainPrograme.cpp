@@ -1,37 +1,37 @@
 /*
-Ïåðåìåííûå:
-Base - Êëåòêè ÿâëÿþùèåñÿ áàçèñíûìè
-Have - Çàïàñû
-Need - Çàÿâêè
-Table - Êîë-âî òîâàðà
-Price - Ñòîèìîñòü
-ps_Price - Ïñåâäîñòîèìîñòü
-aP - Ïîòåíöèàë àëüôà
-bP - Ïîòåíöèàë áåòà
-K - Ìèíèìàëüíûé ýëåìåíò èç (x[i,j]-)
-Y - Ãàììà, Price-ps_Price=Y
-Yij - Ìàññèâ èíäåêñîâ çàìêíóòîé ëîìàíîé ëèíèè
-Z - Òåêóùàÿ ñòîèìîñòü ïëàíà
-_Z - Îæèäàåìàÿ ñòîèìîñòü ïëàíà
-H - Ïðîìåæóòî÷íîå çíà÷åíèå çàïàñîâ
-N - Ïðîìåæóòî÷íîå çíà÷åíèå çàÿââîê
+Переменные:
+Base - Клетки являющиеся базисными
+Have - Запасы
+Need - Заявки
+Table - Кол-во товара
+Price - Стоимость
+ps_Price - Псевдостоимость
+aP - Потенциал альфа
+bP - Потенциал бета
+K - Минимальный элемент из (x[i,j]-)
+Y - Гамма, Price-ps_Price=Y
+Yij - Массив индексов замкнутой ломаной линии
+Z - Текущая стоимость плана
+_Z - Ожидаемая стоимость плана
+H - Промежуточное значение запасов
+N - Промежуточное значение заяввок
 */
 
 #include <iostream>
 #include <clocale>
 using namespace std;
 
-void ShowTable();							//Îòîáðàæàåò òàáëèöó
-bool CheckOpPlan();							//Ïðîâåðêà îïîðíîñòè ïëàíà
-bool CheckOptimal();						//Ïðîâåðêà îïòèìàëüíîñòè ïëàíà
-int** CreateInt2Array(int n, int m);		//Ñîçäàíèå öåëî÷èñëåííîãî äâóìåðíîãî äèíàìè÷åñêîãî ìàññèâà
-bool** CreateBool2Array(int n, int m);		//Ñîçäàíèå áóëåâîãî äâóìåðíîãî äèíàìè÷åñêîãî ìàññèâà
-void Delete2Array(int **A, int n);			//Óäà÷åíèå öåëî÷èñëåííîãî äâóìåðíîãî äèíàìè÷åñêîãî ìàññèâà
-void Delete2Array(bool **A, int n);			//Óäàëåíèå áóëåâîãî äâóìåðíîãî äèíàìè÷åñêîãî ìàññèâà
-void Potencials();							//Ðàññòàíîâêà ïîòåíöèàëîâ è ïñåâäîñòîèìîñòè
-void Answer(int Z);							//Âûâîä îòâåòà
-int** Figure(int** A, int i, int j, int g);	//Ïîñòðîåíèå çàìêíóòîé ëîìàíîé ëèíèè
-bool CheckXY(int** A, int i, int j, int g);	//Ïðîâåðêà íå ïðàâèëüíûõ ïîâîðîòîâ ëèíèè
+void ShowTable();							//Отображает таблицу
+bool CheckOpPlan();							//Проверка опорности плана
+bool CheckOptimal();						//Проверка оптимальности плана
+int** CreateInt2Array(int n, int m);		//Создание целочисленного двумерного динамического массива
+bool** CreateBool2Array(int n, int m);		//Создание булевого двумерного динамического массива
+void Delete2Array(int **A, int n);			//Удачение целочисленного двумерного динамического массива
+void Delete2Array(bool **A, int n);			//Удаление булевого двумерного динамического массива
+void Potencials();							//Расстановка потенциалов и псевдостоимости
+void Answer(int Z);							//Вывод ответа
+int** Figure(int** A, int i, int j, int g);	//Построение замкнутой ломаной линии
+bool CheckXY(int** A, int i, int j, int g);	//Проверка не правильных поворотов линии
 
 int  inp, outp;
 int **Price, **ps_Price, **Table, **Yij;
@@ -39,12 +39,12 @@ int *Have, *Need, *aP, *bP;
 bool **Base;
 
 int main() {
-	int i, j, g, K, Y, Z, _Z, H=0, N=0;
+	int i=0, j=0, g=0, K=0, Y=0, Z=0, _Z=0, H=0, N=0;
 	bool Zero;
 	setlocale(LC_ALL,"Rus");
-	cout<<"Êîë-âî ïóíêòîâ îòïðàâëåíèÿ: ";
+	cout<<"Кол-во пунктов отправления: ";
 	cin>>inp;
-	cout<<"Êîë-âî ïóíêòîâ íàçíà÷åíèÿ: ";
+	cout<<"Кол-во пунктов назначения: ";
 	cin>>outp;
 	Price = CreateInt2Array(inp,outp);
 	Table = CreateInt2Array(inp,outp);
@@ -116,12 +116,11 @@ int main() {
 		}
 
 	}
-
 	if(CheckOpPlan()) {
 		Potencials();
 		ShowTable();
 		int k=0;
-		printf("Ïëàí ÿâëÿåòñÿ îïîðíûì\n");
+		printf("План является опорным\n");
 		for(i=0; i<inp; i++)
 			for(j=0; j<outp; j++)
 				Z+=Price[i][j]*Table[i][j];
@@ -145,7 +144,7 @@ int main() {
 				i-0;
 				j=0;
 				//K-? Yij-?
-				//Öèêë äî òåõ ïîêà ÿ íå âåðíóñü â íà÷àëüíóþ òî÷êó
+				//Цикл до тех пока я не вернусь в начальную точку
 			} while(!(Yij[i][0]==Yij[0][0] && Yij[i][1]==Yij[0][1]));
 			for(i=0; i<inp; i++)
 				if(!(Table[Yij[i][0]][Yij[i][1]]+=Yij[i][2]*K) && !Zero) {
@@ -176,7 +175,7 @@ int main() {
 
 	return 0;
 }
-//-----------------------------------ÎÏÈÑÀÍÈÅ-ÔÓÍÊÖÈÉ------------------------------------------
+//-----------------------------------ОПИСАНИЕ-ФУНКЦИЙ------------------------------------------
 void ShowTable() {
 	int i,j,g,f;
 	setlocale(LC_ALL,"C");
@@ -270,10 +269,10 @@ bool CheckOptimal() {
 	for(i=0; i<inp; i++)
 		for(j=0; j<outp; j++)
 			if(ps_Price[i][j]>Price[i][j]) {
-				printf("Íå îïòèìàëüíî\n");
+				printf("Не оптимально\n");
 				return false;
 			}
-	printf("Îïòèìàëüíî\n");
+	printf("Оптимально\n");
 	return true;
 }
 bool CheckOpPlan() {
@@ -286,7 +285,7 @@ bool CheckOpPlan() {
 	if(k==i+j-1)
 		return true;
 	ShowTable();
-	printf("Ïëàí íå ÿâëÿåòñÿ îïîðíûì\n");
+	printf("План не является опорным\n");
 	return false;
 }
 int** CreateInt2Array(int n, int m) {
@@ -331,7 +330,7 @@ void Potencials() {
 }
 void Answer(int Z) {
 	int i,j;
-	printf("Îòâåò: Zòåê=%d\n",Z);
+	printf("Ответ: Zтек=%d\n",Z);
 	setlocale(LC_ALL,"C");
 	printf("  %c%c%c%c",218,196,196,196);
 	for(i=0; i<outp-2; i++)
