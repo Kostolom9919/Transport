@@ -42,7 +42,7 @@ int main() {
 	int i=0, j=0, g=0, K=0, Y=0, Z=0, _Z=0, H=0, N=0;
 	bool Zero;
 	system("color F0");
-	setlocale(LC_ALL,"Rus");
+	setlocale(0,"");
 	cout<<"Кол-во пунктов отправления: ";
 	cin>>inp;
 	cout<<"Кол-во пунктов назначения: ";
@@ -188,7 +188,7 @@ void ShowTable() {
 	printf("%c\n",187);
 
 	printf("%c",186);
-	setlocale(LC_ALL,"Rus");
+	setlocale(0,"");
 	printf(" ПО\\ПН ");
 	setlocale(LC_ALL,"C");
 	printf("%c",186);
@@ -263,7 +263,7 @@ void ShowTable() {
 	for(i=0; i<outp; i++)
 		printf("%c%c%c%c%c%c%c%c",202,205,205,205,205,205,205,205);
 	printf("%c\n",188);
-	setlocale(LC_ALL,"Rus");
+	setlocale(0,"");
 }
 bool CheckOptimal() {
 	int i,j;
@@ -319,7 +319,7 @@ void Potencials() {
 	for(g=0; g<inp+outp-1; g++) {
 		for(i=0; i<inp; i++)
 			for(j=0; j<outp; j++)
-				if((aP[i]==100 xor bP[j]==100)&&Base[i][j]) {
+				if(((aP[i]==100) xor (bP[j]==100))&&(Base[i][j])) {
 					if(aP[i]==100)aP[i]=Price[i][j]-bP[j];
 					if(bP[j]==100)bP[j]=Price[i][j]-aP[i];
 				}
@@ -353,7 +353,7 @@ void Answer(int Z) {
 		printf("   ");
 	printf("  %c%c%c%c\n",196,196,196,217);
 
-	setlocale(LC_ALL,"Rus");
+	setlocale(0,"");
 }
 int** Figure(int** A, int i, int j, int g) {
 	bool R;
