@@ -1,4 +1,4 @@
-/*
+﻿/*
 Переменные:
 Base - Клетки являющиеся базисными
 Have - Запасы
@@ -41,6 +41,7 @@ bool **Base;
 int main() {
 	int i=0, j=0, g=0, K=0, Y=0, Z=0, _Z=0, H=0, N=0;
 	bool Zero;
+	system("color F0");
 	setlocale(LC_ALL,"Rus");
 	cout<<"Кол-во пунктов отправления: ";
 	cin>>inp;
@@ -153,9 +154,9 @@ int main() {
 				}*/
 			_Z=Z+K*Y;
 			cout<<"K="<<K<<"  Y="<<Y<<endl;
-			cout<<"Zîæèä="<<_Z<<endl;
+			cout<<"Zожид="<<_Z<<endl;
 			ShowTable();
-			cout<<"Zòåê="<<Z<<endl;
+			cout<<"Zтек="<<Z<<endl;
 			k++;
 
 		}
@@ -177,7 +178,7 @@ int main() {
 }
 //-----------------------------------ОПИСАНИЕ-ФУНКЦИЙ------------------------------------------
 void ShowTable() {
-	int i,j,g,f;
+	int i,j;
 	setlocale(LC_ALL,"C");
 	printf("%c%c%c%c%c%c%c%c",201,205,205,205,205,205,205,205);
 	for(i=0; i<outp; i++)
@@ -188,7 +189,7 @@ void ShowTable() {
 
 	printf("%c",186);
 	setlocale(LC_ALL,"Rus");
-	printf(" ÏÎ\\ÏÍ ");
+	printf(" ПО\\ПН ");
 	setlocale(LC_ALL,"C");
 	printf("%c",186);
 	for(i=0; i<outp; i++)
@@ -350,7 +351,7 @@ void Answer(int Z) {
 	printf("  %c%c%c%c",192,196,196,196);
 	for(i=0; i<outp-2; i++)
 		printf("   ");
-	printf(" %c%c%c%c\n",196,196,196,217);
+	printf("  %c%c%c%c\n",196,196,196,217);
 
 	setlocale(LC_ALL,"Rus");
 }
@@ -445,7 +446,7 @@ bool CheckXY(int** A, int i, int j, int g) {
 		return A;
 	}
 	A[g][0]=i;
-	A[g][1]=j;
+	A[g][1]=j; 
 	A=Figure(A,i,j);
 
 }*/
