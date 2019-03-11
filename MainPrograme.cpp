@@ -321,7 +321,7 @@ void Potencials() {
 			for(j=0; j<outp; j++)
 				if(((aP[i]==100) xor (bP[j]==100))&&(Base[i][j])) {
 					if(aP[i]==100)aP[i]=Price[i][j]-bP[j];
-					if(bP[j]==100)bP[j]=Price[i][j]-aP[i];
+					else bP[j]=Price[i][j]-aP[i];
 				}
 	}
 
